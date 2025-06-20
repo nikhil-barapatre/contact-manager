@@ -1,0 +1,140 @@
+{
+  "contacts": [
+    {
+      "id": "2",
+      "name": "Marie Jane",
+      "email": "marie.jane@mail.com",
+      "phone": "9123456780",
+      "address": "456 Park Ave, City",
+      "favourite": true
+    },
+    {
+      "name": "Nikhil Sharma",
+      "email": "nikhil.sharma@mail.com",
+      "phone": "9988776655dvd",
+      "address": "Bhandara",
+      "favourite": true,
+      "id": "3"
+    },
+    {
+      "id": "4",
+      "name": "Aarav Mehta",
+      "email": "aarav.mehta@example.com",
+      "phone": "9876543210",
+      "address": "12 Sunrise St, Mumbai",
+      "favourite": false
+    },
+    {
+      "id": "5",
+      "name": "Priya Singh",
+      "email": "priya.singh@example.com",
+      "phone": "9123456789",
+      "address": "88 Lotus Ave, Delhi",
+      "favourite": true
+    },
+    {
+      "id": "6",
+      "name": "Rohan Patel",
+      "email": "rohan.patel@example.com",
+      "phone": "9988776655",
+      "address": "21 Green Park, Ahmedabad",
+      "favourite": true
+    },
+    {
+      "id": "7",
+      "name": "Anjali Nair",
+      "email": "anjali.nair@example.com",
+      "phone": "9001122334",
+      "address": "103 Palm Residency, Kochi",
+      "favourite": true
+    },
+    {
+      "id": "8",
+      "name": "Kabir Das",
+      "email": "kabir.das@example.com",
+      "phone": "8899776655",
+      "address": "54 Lake Road, Lucknow",
+      "favourite": false
+    },
+    {
+      "id": "9",
+      "name": "Sneha Iyer",
+      "email": "sneha.iyer@example.com",
+      "phone": "7012345678",
+      "address": "75 Hilltop, Pune",
+      "favourite": true
+    },
+    {
+      "id": "10",
+      "name": "Aditya Roy",
+      "email": "aditya.roy@example.com",
+      "phone": "8009988776",
+      "address": "33 Central Rd, Kolkata",
+      "favourite": false
+    },
+    {
+      "id": "11",
+      "name": "Meera Das",
+      "email": "meera.das@example.com",
+      "phone": "9090909090",
+      "address": "9 Banyan St, Bhubaneswar",
+      "favourite": true
+    },
+    {
+      "id": "12",
+      "name": "Rahul Verma",
+      "email": "rahul.verma@example.com",
+      "phone": "7878787878",
+      "address": "45 Sector 10, Noida",
+      "favourite": false
+    },
+    {
+      "id": "13",
+      "name": "Neha Kapoor",
+      "email": "neha.kapoor@example.com",
+      "phone": "9123123123",
+      "address": "67 Galaxy Enclave, Chandigarh",
+      "favourite": true
+    },
+    {
+      "id": "14",
+      "name": "Amit Joshi",
+      "email": "amit.joshi@example.com",
+      "phone": "8765432109",
+      "address": "23 MG Road, Indore",
+      "favourite": false
+    },
+    {
+      "id": "15",
+      "name": "Tanya Reddy",
+      "email": "tanya.reddy@example.com",
+      "phone": "9099988877",
+      "address": "78 Jubilee Hills, Hyderabad",
+      "favourite": true
+    },
+    {
+      "id": "16",
+      "name": "Vikram Chauhan",
+      "email": "vikram.chauhan@example.com",
+      "phone": "8080808080",
+      "address": "5 Horizon Tower, Jaipur",
+      "favourite": false
+    },
+    {
+      "id": "17",
+      "name": "Divya Mishra",
+      "email": "divya.mishra@example.com",
+      "phone": "9345678910",
+      "address": "61 Marina Blvd, Chennai",
+      "favourite": true
+    },
+    {
+      "id": "18",
+      "name": "Kunal Saxena",
+      "email": "kunal.saxena@example.com",
+      "phone": "9234567890",
+      "address": "99 Sector 21, Gurugram",
+      "favourite": false
+    }
+  ]
+}
