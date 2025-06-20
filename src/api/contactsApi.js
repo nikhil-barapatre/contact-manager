@@ -8,6 +8,8 @@ export const fetchContacts = async({ page = 1, limit = 10, search = '', showFavo
     const params = {
         _page: page,
         _limit: limit,
+        _sort: 'id',
+        _order: 'desc',
     };
     if (search) params.name_like = search;
     if (showFavouritesOnly) params.favourite = true;

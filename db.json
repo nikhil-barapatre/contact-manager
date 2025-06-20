@@ -1,14 +1,6 @@
 {
   "contacts": [
     {
-      "id": "2",
-      "name": "Marie Jane",
-      "email": "marie.jane@mail.com",
-      "phone": "9123456780",
-      "address": "456 Park Ave, City",
-      "favourite": true
-    },
-    {
       "name": "Nikhil Sharma",
       "email": "nikhil.sharma@mail.com",
       "phone": "9988776655dvd",
@@ -135,6 +127,46 @@
       "phone": "9234567890",
       "address": "99 Sector 21, Gurugram",
       "favourite": false
+    },
+    {
+      "id": "e415",
+      "name": "Rahul Desai",
+      "email": "udgufgdf",
+      "phone": "46666666666666666666666666",
+      "address": "hdgfdgf",
+      "favourite": true
+    },
+    {
+      "id": "a204",
+      "name": "Nikhil",
+      "email": "sunit patil",
+      "phone": "739847w868695",
+      "address": "dgdfhjsgfs",
+      "favourite": false
+    },
+    {
+      "id": "f8ed",
+      "name": "Rahul Dravid",
+      "email": "rahul",
+      "phone": "87848324348jksdfh",
+      "address": "jhdvgyujsdgvj",
+      "favourite": false
+    },
+    {
+      "id": "f57c",
+      "name": "usugfusgf",
+      "email": "sjdgfjdsgf@gmail.in",
+      "phone": "jhsdgfsdgf",
+      "address": "sjdhkfgsdgfs",
+      "favourite": false
+    },
+    {
+      "id": "bf56",
+      "name": "Maria jaa",
+      "email": "maria.ja@gmail.com",
+      "phone": "8888888888",
+      "address": "jsddvjshd",
+      "favourite": true
     }
   ]
 }

@@ -55,7 +55,7 @@ const ContactDetailsPage = () => {
   };
 
   return (
-    <Paper sx={{ width: { xs: '100%', md: '60vw', lg: '50vw' }, minWidth: 320, mx: 'auto', borderRadius: 4, boxShadow: 2, display: 'flex', flexDirection: 'column', bgcolor: '#fff', minHeight: 500 }}>
+    <Paper sx={{ width: { xs: '100%', md: '40vw' }, minWidth: 320, mx: 'auto', borderRadius: 4, boxShadow: 2, display: 'flex', flexDirection: 'column', bgcolor: '#fff', minHeight: 500 }}>
       <Box sx={{ flex: 1, overflowY: 'auto', pb: 0 }}>
         {/* Top Bar */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, mb: 2 }}>

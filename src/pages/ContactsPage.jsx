@@ -32,7 +32,7 @@ const ContactsPage = () => {
         <Route
           path="/"
           element={
-            <Paper sx={{ width: { xs: '100%', md: '60vw', lg: '50vw' }, minWidth: 320, mx: 'auto', borderRadius: 4, boxShadow: 2, display: 'flex', flexDirection: 'column', bgcolor: 'softCardBg.main', height: '100%' }}>
+            <Paper sx={{ width: { xs: '100%', md: '40vw' }, minWidth: 320, mx: 'auto', borderRadius: 4, boxShadow: 2, display: 'flex', flexDirection: 'column', bgcolor: 'softCardBg.main', height: '100%' }}>
               <Box sx={{ flex: 1, overflowY: 'auto', pb: 0 }}>
                 <ContactList
                   navigate={navigate}
