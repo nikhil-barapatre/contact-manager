@@ -1,32 +1,80 @@
-import { Card, CardContent, Typography, Box, IconButton } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import {
+  ListItemButton,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  Typography,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
-const ContactCard = ({ contact, navigate }) => {
-  const handleClick = () => {
-    if (navigate) {
-      navigate(`/contact/${contact.id}`);
-    }
-  };
-
+const ContactCard = ({ contact, onCardClick, onFavouriteToggle }) => {
   return (
-    <Card variant="outlined" sx={{ mb: 2, borderRadius: 3, boxShadow: 1, cursor: 'pointer' }} onClick={handleClick}>
-      <CardContent sx={{ display: 'flex', alignItems: 'center', p: 1.5 }}>
-        <Box sx={{ flex: 1 }}>
-          <Typography fontWeight={600}>{contact.name}</Typography>
-          <Typography variant="body2" color="text.secondary">
+    <ListItemButton
+      onClick={onCardClick}
+      sx={{
+        width: "100%",
+        bgcolor: "#FAFFF9",
+        "&:hover": { bgcolor: "#FFECE2" },
+        borderRadius: 3,
+        p: 1,
+      }}
+    >
+      <ListItemAvatar>
+        <Avatar
+          sx={{
+            bgcolor: "#FA6F42",
+            color: "white",
+            width: 48,
+            height: 48,
+            fontSize: 22,
+            mr: 1,
+          }}
+        >
+          {contact.name?.[0]?.toUpperCase() || "?"}
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={
+          <Typography fontSize={17} fontWeight={600} color="text.primary">
+            {contact.name}
+          </Typography>
+        }
+        secondary={
+          <Typography fontSize={14} color="text.secondary">
             {contact.email}
           </Typography>
-        </Box>
-        <IconButton>
+        }
+      />
+      <Tooltip
+        title={
+          contact.favourite ? "Remove from Favourites" : "Mark as Favourite"
+        }
+        arrow
+      >
+        <IconButton
+          edge="end"
+          disableRipple
+          tabIndex={-1}
+          sx={{ ml: 1 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onFavouriteToggle(e, contact);
+          }}
+          aria-label={
+            contact.favourite ? "Remove from favourites" : "Add to favourites"
+          }
+        >
           {contact.favourite ? (
             <StarIcon color="warning" />
           ) : (
             <StarBorderIcon color="disabled" />
           )}
         </IconButton>
-      </CardContent>
-    </Card>
+      </Tooltip>
+    </ListItemButton>
   );
 };
 

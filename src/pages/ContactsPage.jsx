@@ -1,74 +1,95 @@
-import { Box, Paper, Select, MenuItem, Typography, IconButton } from '@mui/material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ContactList from '../components/ContactList/ContactList';
-import ContactModal from '../components/ContactModal/ContactModal';
-import useUIStore from '../store/uiStore';
-import useContactStore from '../store/contactStore';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import ContactDetailsPage from './ContactDetailsPage';
-import { useState } from 'react';
+import { Box, Paper, Button } from "@mui/material";
+import ContactList from "../components/ContactList/ContactList";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import ContactDetailsPage from "./ContactDetailsPage";
+import { useState, useCallback } from "react";
+import AddContactPage from "./AddContactPage";
+import Pagination from "../components/Pagination/Pagination";
 
 const ContactsPage = () => {
-  const setModalOpen = useUIStore((state) => state.setModalOpen);
-  const setSelectedContact = useContactStore((state) => state.setSelectedContact);
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
 
-  const handleAddContact = () => {
-    setSelectedContact(null);
-    setModalOpen(true);
-  };
+  const handlePageChange = useCallback((newPage) => {
+    setPage(newPage);
+  }, []);
 
-  // For pagination bar
-  const from = totalCount === 0 ? 0 : page * rowsPerPage + 1;
-  const to = Math.min((page + 1) * rowsPerPage, totalCount);
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  }, []);
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'softCardBg.main', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'stretch' }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        bgcolor: "softCardBg.main",
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "stretch",
+      }}
+    >
       <Routes>
         <Route
           path="/"
           element={
-            <Paper sx={{ width: { xs: '100%', md: '60vw', lg: '50vw' }, minWidth: 320, mx: 'auto', borderRadius: 4, boxShadow: 2, display: 'flex', flexDirection: 'column', bgcolor: 'softCardBg.main', height: '100%' }}>
-              <Box sx={{ flex: 1, overflowY: 'auto', pb: 0 }}>
+            <Paper
+              sx={{
+                width: { xs: "100%", md: "40vw" },
+                minWidth: 320,
+                mx: "auto",
+                borderRadius: 4,
+                boxShadow: 2,
+                display: "flex",
+                flexDirection: "column",
+                bgcolor: "softCardBg.main",
+                height: "100vh",
+                maxHeight: "100vh",
+              }}
+            >
+              <Box sx={{ flex: 1, overflowY: "auto" }}>
                 <ContactList
                   navigate={navigate}
-                  onAddContact={handleAddContact}
                   page={page}
                   rowsPerPage={rowsPerPage}
                   setTotalCount={setTotalCount}
                 />
               </Box>
-              {/* Pagination Bar (sticky at bottom of card) */}
-              <Box sx={{ width: '100%', borderTop: '1px solid #eee', display: 'flex', alignItems: 'center', bgcolor: 'softCardBg.main', borderRadius: '0 0 16px 16px', boxShadow: 0, px: 2, py: 1, gap: 1, justifyContent: 'flex-end', position: 'sticky', bottom: 0, zIndex: 2 }}>
-                <Typography sx={{ fontSize: 15, mr: 1, color: 'text.primary' }}>Rows per page:</Typography>
-                <Select
-                  value={rowsPerPage}
-                  onChange={e => { setRowsPerPage(Number(e.target.value)); setPage(0); }}
-                  size="small"
-                  sx={{ fontSize: 15, width: 60 }}
-                >
-                  {[5, 10, 15].map((rows) => (
-                    <MenuItem key={rows} value={rows}>{rows}</MenuItem>
-                  ))}
-                </Select>
-                <Typography sx={{ fontSize: 15, mx: 2, color: 'text.primary' }}>{from}–{to} of {totalCount}</Typography>
-                <IconButton onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0}>
-                  <ChevronLeftIcon />
-                </IconButton>
-                <IconButton onClick={() => setPage(page + 1)} disabled={to >= totalCount}>
-                  <ChevronRightIcon />
-                </IconButton>
+              <Box
+                sx={{
+                  bgcolor: "softCardBg.main",
+                  borderRadius: "0 0 16px 16px",
+                  boxShadow: "0 -2px 5px rgba(0,0,0,0.05)",
+                }}
+              >
+                <Box sx={{ px: 2, pt: 0.5, pb: 0.5 }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ mt: 1, bgcolor: "#6CA66B" }}
+                    fullWidth
+                    onClick={() => navigate("/add")}
+                  >
+                    Add Contact
+                  </Button>
+                </Box>
+                <Pagination
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  totalCount={totalCount}
+                  onPageChange={handlePageChange}
+                  onRowsPerPageChange={handleRowsPerPageChange}
+                />
               </Box>
             </Paper>
           }
         />
+        <Route path="/add" element={<AddContactPage />} />
         <Route path="/contact/:id" element={<ContactDetailsPage />} />
       </Routes>
-      <ContactModal />
     </Box>
   );
 };
