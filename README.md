@@ -37,7 +37,7 @@ Follow these instructions to get the project running on your local machine.
 
 1.  **Clone the repository:**
     ```sh
-    git clone <https://github.com/nikhil-barapatre/contact-manager.git>
+    git clone https://github.com/nikhil-barapatre/contact-manager.git
     cd contact-manager
     ```
 
