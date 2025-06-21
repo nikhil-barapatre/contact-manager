@@ -5,6 +5,7 @@ import ContactsPage from "./pages/ContactsPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GlobalSpinner from "./components/GlobalSpinner/GlobalSpinner";
 import ErrorSnackbar from "./components/ErrorSnackbar/ErrorSnackbar";
+import SuccessSnackbar from "./components/SuccessSnackbar/SuccessSnackbar";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function App() {
         <CssBaseline />
         <GlobalSpinner />
         <ErrorSnackbar />
+        <SuccessSnackbar />
         <BrowserRouter>
           <ContactsPage />
         </BrowserRouter>{" "}

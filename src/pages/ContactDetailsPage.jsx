@@ -1,9 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery} from "@tanstack/react-query";
 import {
   fetchContacts,
-  updateContact,
-  deleteContact,
 } from "../api/contactsApi";
 import {
   Box,
@@ -25,6 +23,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { useState, useCallback } from "react";
 import ContactForm from "../components/ContactForm/ContactForm";
 import useContactStore from "../store/contactStore";
+import { useUpdateContact, useDeleteContact } from "../hooks/useContactMutations";
 
 const ContactDetailsPage = () => {
   const { id: idFromUrl } = useParams();
@@ -44,14 +43,8 @@ const ContactDetailsPage = () => {
     },
   });
 
-  const updateContactMutation = useMutation({
-    mutationFn: updateContact,
-    onSuccess: () => {
-      setEditMode(false);
-      setForm(null);
-      refetch();
-    },
-  });
+  const updateContactMutation = useUpdateContact();
+  const deleteContactMutation = useDeleteContact();
 
   const handleEdit = useCallback(() => setEditMode(true), []);
 
@@ -59,16 +52,23 @@ const ContactDetailsPage = () => {
     async (formData) => {
       if (!data) return;
       await updateContactMutation.mutateAsync({ id: data.id, ...formData });
+      setTimeout(() => {
+        setEditMode(false);
+        setForm(null);
+        refetch();
+      }, 500);
     },
-    [data, updateContactMutation]
+    [data, updateContactMutation, refetch]
   );
 
   const handleDelete = useCallback(async () => {
     if (!data) return;
-    await deleteContact(data.id);
-    setDeleteDialog(false);
-    navigate("/");
-  }, [data, navigate]);
+    await deleteContactMutation.mutateAsync(data.id);
+    setTimeout(() => {
+      setDeleteDialog(false);
+      navigate("/");
+    }, 500);
+  }, [data, deleteContactMutation, navigate]);
 
   const handleOpenDeleteDialog = useCallback(() => setDeleteDialog(true), []);
   const handleCloseDeleteDialog = useCallback(() => setDeleteDialog(false), []);

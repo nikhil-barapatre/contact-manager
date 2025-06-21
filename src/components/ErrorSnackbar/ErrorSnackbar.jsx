@@ -15,9 +15,10 @@ const ErrorSnackbar = () => {
   return (
     <Snackbar
       open={!!error}
-      autoHideDuration={6000}
+      autoHideDuration={2500}
       onClose={handleClose}
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      sx={{ zIndex: 99999 }}
     >
       <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
         {error}

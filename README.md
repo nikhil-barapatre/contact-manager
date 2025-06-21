@@ -2,12 +2,12 @@
 
 This is a single-page web application for managing a list of contacts. It's built with a modern React stack, focusing on a clean component structure, efficient state management, and a great user experience.
 
-The application allows users to view, add, edit, and delete contacts. It also includes features like server-side searching, filtering, and pagination to handle data efficiently.
+The application allows users to view, add, edit, and delete contacts. It also includes features like contact searching, filtering, and pagination to handle data efficiently.
 
 ## Project Highlights
 
 *   **Modern React Stack:** Utilizes React v18, Zustand, TanStack React Query, and React Hook Form.
-*   **Efficient Data Handling:** Implements server-side pagination, searching, and filtering, ensuring the app remains fast and responsive even with a large number of contacts.
+*   **Efficient Data Handling:** Implements pagination, searching, and filtering, ensuring the app remains fast and responsive even with a large number of contacts.
 *   **Robust State Management:** Cleanly separates client-side UI state (like search input and toggles) from server-side cache (the contact list itself).
 *   **Reusable Component Architecture:** Features a well-organized structure with reusable components like `ContactCard` and a versatile `ContactForm` for both adding and editing.
 *   **Enhanced User Feedback:** Provides a global loading spinner for all background data operations and displays clear, non-intrusive snackbar notifications for API errors.
@@ -37,7 +37,7 @@ Follow these instructions to get the project running on your local machine.
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/nikhil-barapatre/contact-manager.git
+    git clone <your-repository-url>
     cd contact-manager
     ```
 
@@ -93,6 +93,7 @@ Beyond the core requirements, several features were added to improve the applica
 *   **Global Feedback System:** A `GlobalSpinner` provides a non-intrusive loading indicator during any background API request, and an `ErrorSnackbar` provides clear feedback if an operation fails. This ensures the user is never left wondering about the application's state.
 *   **Optimized Performance:** `useCallback` is used for event handlers passed down to child components. This prevents the creation of new functions on every render, optimizing performance by reducing unnecessary re-renders of child components.
 *   **Dynamic Headings:** The "Add Contact" and "Edit Contact" pages feature clear, dynamic headings, improving context and overall user experience.
+*   **Success & Error Toasts:** The app displays clear, color-coded toast notifications in the top-right corner for all add, edit, and delete actions. Success messages appear in green, while delete success is highlighted in red for extra clarity. All API errors are also shown as toasts, ensuring users always receive immediate feedback on their actions.
 
 ## Screenshots
 
