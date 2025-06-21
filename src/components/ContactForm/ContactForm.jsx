@@ -1,15 +1,20 @@
 import { useForm } from 'react-hook-form';
-import { Box, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
+import { Box, TextField, Checkbox, FormControlLabel, Button, Avatar } from '@mui/material';
 
 const ContactForm = ({ defaultValues = {}, onSubmit, isEdit = false }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues });
+  const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues, mode: 'onChange' });
+  const nameValue = watch('name') || '';
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <Avatar sx={{ width: 96, height: 96, bgcolor: '#FA6F42', fontSize: 40, mb: 2 }}>
+        {nameValue.trim() ? nameValue.trim()[0].toUpperCase() : ''}
+      </Avatar>
       <TextField
         label="Name"
         fullWidth
         margin="normal"
+        sx={{ mb: 2 }}
         {...register('name', { required: 'Name is required' })}
         error={!!errors.name}
         helperText={errors.name?.message}
@@ -18,7 +23,14 @@ const ContactForm = ({ defaultValues = {}, onSubmit, isEdit = false }) => {
         label="Email"
         fullWidth
         margin="normal"
-        {...register('email', { required: 'Email is required', pattern: { value: /.+@.+\..+/, message: 'Invalid email' } })}
+        sx={{ mb: 2 }}
+        {...register('email', {
+          required: 'Email is required',
+          pattern: {
+            value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+            message: 'Enter correct email',
+          },
+        })}
         error={!!errors.email}
         helperText={errors.email?.message}
       />
@@ -26,7 +38,14 @@ const ContactForm = ({ defaultValues = {}, onSubmit, isEdit = false }) => {
         label="Phone"
         fullWidth
         margin="normal"
-        {...register('phone', { required: 'Phone is required', pattern: { value: /^[0-9\-\+]{9,15}$/, message: 'Invalid phone' } })}
+        sx={{ mb: 2 }}
+        {...register('phone', {
+          required: 'Phone is required',
+          pattern: {
+            value: /^[0-9]{10}$/,
+            message: 'Enter correct phone number',
+          },
+        })}
         error={!!errors.phone}
         helperText={errors.phone?.message}
       />
@@ -34,14 +53,18 @@ const ContactForm = ({ defaultValues = {}, onSubmit, isEdit = false }) => {
         label="Address"
         fullWidth
         margin="normal"
+        sx={{ mb: 2 }}
         {...register('address', { required: 'Address is required' })}
         error={!!errors.address}
         helperText={errors.address?.message}
       />
-      <FormControlLabel
-        control={<Checkbox {...register('favourite')} color="primary" />}
-        label="Favourite"
-      />
+      <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', mb: 2 }}>
+        <FormControlLabel
+          control={<Checkbox {...register('favourite')} color="primary" />}
+          label="Favourite"
+          sx={{ flex: 1, m: 0 }}
+        />
+      </Box>
       <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
         {isEdit ? 'Save Changes' : 'Add Contact'}
       </Button>

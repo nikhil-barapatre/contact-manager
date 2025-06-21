@@ -8,6 +8,7 @@ import useContactStore from '../store/contactStore';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import ContactDetailsPage from './ContactDetailsPage';
 import { useState } from 'react';
+import AddContactPage from './AddContactPage';
 
 const ContactsPage = () => {
   const setModalOpen = useUIStore((state) => state.setModalOpen);
@@ -66,6 +67,7 @@ const ContactsPage = () => {
             </Paper>
           }
         />
+        <Route path="/add" element={<AddContactPage />} />
         <Route path="/contact/:id" element={<ContactDetailsPage />} />
       </Routes>
       <ContactModal />

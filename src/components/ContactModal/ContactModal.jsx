@@ -36,7 +36,7 @@ const ContactModal = () => {
       </DialogTitle>
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', bgcolor: '#f7f7fa' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 1, mb: 2 }}>
-          <Avatar sx={{ width: 96, height: 96, bgcolor: '#bdbdbd', mb: 1, fontSize: 40 }}>
+          <Avatar sx={{ width: 96, height: 96, bgcolor: '#FA6F42', mb: 1, fontSize: 40 }}>
             {nameValue.trim() ? nameValue.trim()[0].toUpperCase() : ''}
           </Avatar>
           {/* <Typography fontWeight={500} color="text.secondary">Avatar</Typography> */}

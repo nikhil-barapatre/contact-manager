@@ -12,7 +12,8 @@ import {
   Paper,
   Fab,
   FormControlLabel,
-  Switch
+  Switch,
+  Tooltip
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
@@ -22,27 +23,40 @@ import useContactsQuery from '../../hooks/useContactsQuery';
 import { useShowFavouritesOnly, useSetShowFavouritesOnly } from '../../hooks/useZustandSelectors';
 import { useEffect } from 'react';
 import useContactStore from '../../store/contactStore';
+import { useUpdateContact } from '../../hooks/useContactMutations';
 
 const ContactList = ({ navigate, onAddContact, page, rowsPerPage, setTotalCount }) => {
-  const { data, isLoading } = useContactsQuery({ page, limit: rowsPerPage });
-  const contacts = data?.data || [];
   const showFavouritesOnly = useShowFavouritesOnly();
   const setShowFavouritesOnly = useSetShowFavouritesOnly();
   const search = useContactStore((state) => state.search);
   const setSearch = useContactStore((state) => state.setSearch);
+  const updateContactMutation = useUpdateContact();
 
+  // Always fetch all contacts (limit 1000), filter and paginate in the frontend
+  const { data, isLoading } = useContactsQuery({ page: 0, limit: 1000 });
+  const contacts = data?.data || [];
+
+  // Filter contacts in the frontend if showFavouritesOnly is true
+  let filteredContacts = showFavouritesOnly
+    ? contacts.filter((c) => c.favourite)
+    : contacts;
+  const total = filteredContacts.length;
+  // Paginate in frontend
+  const displayedContacts = filteredContacts.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+
+  // Set totalCount for pagination bar
   useEffect(() => {
-    if (setTotalCount && data?.total !== undefined) {
-      setTotalCount(data.total);
+    if (setTotalCount) {
+      setTotalCount(total);
     }
-  }, [data, setTotalCount]);
+  }, [total, setTotalCount]);
 
   return (
     <Box sx={{ width: '100%', pt: 2, pb: 8, minHeight: '100vh', bgcolor: 'softCardBg.main', display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center',bgcolor: 'softCardBg.main', justifyContent: 'space-between', mb: 2, px: 2 }}>
         <Typography variant="h4" sx={{ fontWeight: 700, letterSpacing: 0.5, color: 'text.primary' }}>Contacts</Typography>
-        <Fab color="primary" size="small" onClick={onAddContact} aria-label="add" sx={{ boxShadow: 0 }}>
+        <Fab color="primary" size="small" onClick={() => navigate('/add')} aria-label="add" sx={{ boxShadow: 0 }}>
           <AddIcon />
         </Fab>
       </Box>
@@ -78,12 +92,12 @@ const ContactList = ({ navigate, onAddContact, page, rowsPerPage, setTotalCount 
           <ListItem>
             <ListItemText primary={<Typography align="center" color="text.primary">Loading...</Typography>} />
           </ListItem>
-        ) : contacts.length === 0 ? (
+        ) : displayedContacts.length === 0 ? (
           <ListItem>
             <ListItemText primary={<Typography align="center" color="text.primary">No contacts found.</Typography>} />
           </ListItem>
         ) : (
-          contacts.map((contact) => (
+          displayedContacts.map((contact) => (
             <ListItem disablePadding key={contact.id} sx={{ width: '100%' }}>
               <ListItemButton 
                 onClick={() => navigate(`/contact/${contact.id}`)} 
@@ -104,9 +118,21 @@ const ContactList = ({ navigate, onAddContact, page, rowsPerPage, setTotalCount 
                   primary={<Typography fontSize={17} fontWeight={600} color="text.primary">{contact.name}</Typography>}
                   secondary={<Typography fontSize={14} color="text.secondary">{contact.email}</Typography>}
                 />
-                <IconButton edge="end" disableRipple tabIndex={-1} sx={{ ml: 1 }}>
+                <Tooltip title="Mark as Favourite" arrow>
+                  <IconButton 
+                    edge="end" 
+                    disableRipple 
+                    tabIndex={-1} 
+                    sx={{ ml: 1 }}
+                    onClick={e => {
+                      e.stopPropagation();
+                      updateContactMutation.mutate({ id: contact.id, ...contact, favourite: !contact.favourite });
+                    }}
+                    aria-label={contact.favourite ? 'Remove from favourites' : 'Add to favourites'}
+                  >
                   {contact.favourite ? <StarIcon color="warning" /> : <StarBorderIcon color="disabled" />}
                 </IconButton>
+                </Tooltip>
               </ListItemButton>
             </ListItem>
           ))
