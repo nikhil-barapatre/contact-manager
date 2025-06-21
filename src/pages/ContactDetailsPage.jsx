@@ -22,12 +22,20 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import StarIcon from "@mui/icons-material/Star";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import ContactForm from "../components/ContactForm/ContactForm";
+import useContactStore from "../store/contactStore";
 
 const ContactDetailsPage = () => {
-  const { id } = useParams();
+  const { id: idFromUrl } = useParams();
   const navigate = useNavigate();
+  const selectedContactId = useContactStore((state) => state.selectedContactId);
+  const [editMode, setEditMode] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
+  const [form, setForm] = useState(null);
+  
+  const id = selectedContactId || idFromUrl;
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["contact", id],
     queryFn: async () => {
@@ -35,9 +43,6 @@ const ContactDetailsPage = () => {
       return all.data.find((c) => String(c.id) === String(id));
     },
   });
-  const [editMode, setEditMode] = useState(false);
-  const [deleteDialog, setDeleteDialog] = useState(false);
-  const [form, setForm] = useState(null);
 
   const updateContactMutation = useMutation({
     mutationFn: updateContact,
@@ -47,6 +52,32 @@ const ContactDetailsPage = () => {
       refetch();
     },
   });
+  
+  const handleEdit = useCallback(() => setEditMode(true), []);
+
+  const handleEditSubmit = useCallback(async (formData) => {
+    if (!data) return;
+    await updateContactMutation.mutateAsync({ id: data.id, ...formData });
+  }, [data, updateContactMutation]);
+
+  const handleDelete = useCallback(async () => {
+    if (!data) return;
+    await deleteContact(data.id);
+    setDeleteDialog(false);
+    navigate("/");
+  }, [data, navigate]);
+
+  const handleOpenDeleteDialog = useCallback(() => setDeleteDialog(true), []);
+  const handleCloseDeleteDialog = useCallback(() => setDeleteDialog(false), []);
+
+  const handleBack = useCallback(() => {
+    if (editMode) {
+      setEditMode(false);
+      setForm(null);
+    } else {
+      navigate(-1);
+    }
+  }, [editMode, navigate]);
 
   if (isLoading) return <Typography>Loading...</Typography>;
   if (!data) return <Typography>Contact not found.</Typography>;
@@ -62,21 +93,6 @@ const ContactDetailsPage = () => {
     });
   }
 
-  const handleEdit = () => setEditMode(true);
-  // const handleCancelEdit = () => { setEditMode(false); setForm(null); };
-  // const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  // const handleSwitch = (e) => setForm({ ...form, favourite: e.target.checked });
-
-  const handleEditSubmit = async (formData) => {
-    await updateContactMutation.mutateAsync({ id: data.id, ...formData });
-  };
-
-  const handleDelete = async () => {
-    await deleteContact(data.id);
-    setDeleteDialog(false);
-    navigate("/");
-  };
-
   return (
     <Paper
       sx={{
@@ -87,7 +103,7 @@ const ContactDetailsPage = () => {
         boxShadow: 2,
         display: "flex",
         flexDirection: "column",
-        bgcolor: "#fff",
+        bgcolor: 'softCardBg.main',
         minHeight: 500,
       }}
     >
@@ -100,17 +116,11 @@ const ContactDetailsPage = () => {
             justifyContent: "space-between",
             px: 2,
             mb: 2,
+            bgcolor: 'softCardBg.main'
           }}
         >
           <IconButton
-            onClick={() => {
-              if (editMode) {
-                setEditMode(false);
-                setForm(null);
-              } else {
-                navigate(-1);
-              }
-            }}
+            onClick={handleBack}
           >
             <ArrowBackIcon />
           </IconButton>
@@ -130,6 +140,7 @@ const ContactDetailsPage = () => {
               flexDirection: "column",
               gap: 2,
               alignItems: "center",
+              bgcolor: 'softCardBg.main'
             }}
           >
             <ContactForm
@@ -153,6 +164,7 @@ const ContactDetailsPage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 mb: 2,
+                bgcolor: 'softCardBg.main'
               }}
             >
               <Avatar
@@ -179,9 +191,10 @@ const ContactDetailsPage = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: 2,
+                bgcolor: 'softCardBg.main'
               }}
             >
-              <Box sx={{ bgcolor: "#faf9f7", borderRadius: 3, p: 2, mb: 1 }}>
+              <Box sx={{ bgcolor: "#FAFFF9", borderRadius: 3, p: 2, mb: 1 }}>
                 <Typography
                   color="text.secondary"
                   fontSize={15}
@@ -193,7 +206,7 @@ const ContactDetailsPage = () => {
                   {data.email}
                 </Typography>
               </Box>
-              <Box sx={{ bgcolor: "#faf9f7", borderRadius: 3, p: 2, mb: 1 }}>
+              <Box sx={{ bgcolor: "#FAFFF9", borderRadius: 3, p: 2, mb: 1 }}>
                 <Typography
                   color="text.secondary"
                   fontSize={15}
@@ -205,7 +218,7 @@ const ContactDetailsPage = () => {
                   {data.phone}
                 </Typography>
               </Box>
-              <Box sx={{ bgcolor: "#faf9f7", borderRadius: 3, p: 2, mb: 1 }}>
+              <Box sx={{ bgcolor: "#FAFFF9", borderRadius: 3, p: 2, mb: 1 }}>
                 <Typography
                   color="text.secondary"
                   fontSize={15}
@@ -217,27 +230,33 @@ const ContactDetailsPage = () => {
                   {data.address}
                 </Typography>
               </Box>
-            </Box>
-            {/* Favourite Switch */}
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2, mx: 2 }}>
-              <Typography color="text.secondary" fontSize={15} sx={{ mr: 1 }}>
-                Favourite
-              </Typography>
-              <Switch checked={!!data.favourite} disabled color="warning" />
+              <Box sx={{ bgcolor: "#FAFFF9", borderRadius: 3, p: 2, mb: 1 }}>
+                <Typography
+                  color="text.secondary"
+                  fontSize={15}
+                  sx={{ mb: 0.5 }}
+                >
+                  Favourite
+                </Typography>
+                <Switch checked={!!data.favourite} disabled color="warning" />
+              </Box>
             </Box>
             {/* Delete Button */}
-            <Button
-              variant="outlined"
-              color="error"
-              startIcon={<DeleteIcon />}
-              fullWidth
-              sx={{ mt: 2 }}
-              onClick={() => setDeleteDialog(true)}
-            >
-              Delete Contact
-            </Button>
+            <Box sx={{ px: 2, pb: 2 }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                startIcon={<DeleteIcon />}
+                fullWidth
+                sx={{ mt: 2, bgcolor:"#ff6363"}}
+                onClick={handleOpenDeleteDialog}
+              >
+                Delete Contact
+              </Button>
+            </Box>
             {/* Delete Confirmation Dialog */}
-            <Dialog open={deleteDialog} onClose={() => setDeleteDialog(false)}>
+            <Dialog open={deleteDialog} onClose={handleCloseDeleteDialog}>
               <DialogTitle>Delete Contact</DialogTitle>
               <DialogContent>
                 <Typography>
@@ -245,7 +264,7 @@ const ContactDetailsPage = () => {
                 </Typography>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setDeleteDialog(false)}>No</Button>
+                <Button onClick={handleCloseDeleteDialog}>No</Button>
                 <Button onClick={handleDelete} color="error">
                   Yes
                 </Button>

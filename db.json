@@ -1,28 +1,12 @@
 {
   "contacts": [
     {
-      "name": "Nikhil Sharma",
-      "email": "nikhil.sharma@mail.com",
-      "phone": "7777777777",
-      "address": "Bhandara",
-      "favourite": true,
-      "id": "3"
-    },
-    {
       "name": "Aarav Mehta",
       "email": "aarav.mehta@example.com",
       "phone": "9876543210",
       "address": "12 Sunrise St, Mumbai",
       "favourite": true,
       "id": "4"
-    },
-    {
-      "name": "Priya Singh",
-      "email": "priya.singh@example.com",
-      "phone": "9123456789",
-      "address": "88 Lotus Ave, Delhi",
-      "favourite": true,
-      "id": "5"
     },
     {
       "name": "Rohan Patel",
@@ -37,16 +21,16 @@
       "email": "anjali.nair@example.com",
       "phone": "9001122334",
       "address": "103 Palm Residency, Kochi",
-      "favourite": false,
+      "favourite": true,
       "id": "7"
     },
     {
-      "id": "8",
       "name": "Kabir Das",
       "email": "kabir.das@example.com",
       "phone": "8899776655",
       "address": "54 Lake Road, Lucknow",
-      "favourite": false
+      "favourite": true,
+      "id": "8"
     },
     {
       "name": "Sneha Iyer",
@@ -81,14 +65,6 @@
       "id": "12"
     },
     {
-      "name": "Neha Kapoor",
-      "email": "neha.kapoor@example.com",
-      "phone": "9123123123",
-      "address": "67 Galaxy Enclave, Chandigarh",
-      "favourite": true,
-      "id": "13"
-    },
-    {
       "name": "Amit Joshi",
       "email": "amit.joshi@example.com",
       "phone": "8765432109",
@@ -105,12 +81,12 @@
       "id": "15"
     },
     {
-      "id": "16",
       "name": "Vikram Chauhan",
       "email": "vikram.chauhan@example.com",
       "phone": "8080808080",
       "address": "5 Horizon Tower, Jaipur",
-      "favourite": false
+      "favourite": true,
+      "id": "16"
     },
     {
       "name": "Divya Mishra",
@@ -167,6 +143,30 @@
       "address": "jsddvjshd",
       "favourite": false,
       "id": "bf56"
+    },
+    {
+      "id": "a64c",
+      "name": "cxvxcv",
+      "email": "fddv@gmail.com",
+      "phone": "6666666666",
+      "address": "mhh",
+      "favourite": true
+    },
+    {
+      "id": "69a5",
+      "name": "Kiran",
+      "email": "kiran@gmail.com",
+      "phone": "4554545454",
+      "address": "Bhandara",
+      "favourite": true
+    },
+    {
+      "id": "08d2",
+      "name": "rahul gandhi",
+      "email": "rahul@gmail.com",
+      "phone": "7864837674",
+      "address": "Bhandara",
+      "favourite": true
     }
   ]
 }

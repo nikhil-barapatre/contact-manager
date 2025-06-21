@@ -1,20 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchContacts } from '../api/contactsApi';
-import useContactStore from '../store/contactStore';
 
 export const CONTACTS_QUERY_KEY = 'contacts';
 
-const useContactsQuery = ({ page = 0, limit = 10 } = {}) => {
-    const { search } = useContactStore();
-    const pageNum = page + 1; // json-server is 1-based
-
+const useContactsQuery = () => {
     return useQuery({
-        queryKey: [
-            CONTACTS_QUERY_KEY,
-            { page: pageNum, limit, search },
-        ],
-        queryFn: () => fetchContacts({ page: pageNum, limit, search }),
-        keepPreviousData: true,
+        queryKey: [CONTACTS_QUERY_KEY],
+        queryFn: () => fetchContacts({ page: 1, limit: 1000 }),
     });
 };
 

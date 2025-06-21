@@ -29,6 +29,9 @@ const theme = createTheme({
         softCardBg: {
             main: '#fcefe7',
         },
+        // softCardBg: {
+        //     main: '#f4cccc',
+        // },
     },
     shape: {
         borderRadius: 12,
