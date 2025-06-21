@@ -9,25 +9,18 @@ import ErrorSnackbar from "./components/ErrorSnackbar/ErrorSnackbar";
 const queryClient = new QueryClient();
 
 function App() {
-    return ( <
-        QueryClientProvider client = { queryClient } >
-        <
-        ThemeProvider theme = { theme } >
-        <
-        CssBaseline / >
-        <
-        GlobalSpinner / >
-        <
-        ErrorSnackbar / >
-        <
-        BrowserRouter >
-        <
-        ContactsPage / >
-        <
-        /BrowserRouter> < /
-        ThemeProvider > <
-        /QueryClientProvider>
-    );
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalSpinner />
+        <ErrorSnackbar />
+        <BrowserRouter>
+          <ContactsPage />
+        </BrowserRouter>{" "}
+      </ThemeProvider>{" "}
+    </QueryClientProvider>
+  );
 }
 
 export default App;
