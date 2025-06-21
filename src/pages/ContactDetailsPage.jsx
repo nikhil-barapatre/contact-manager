@@ -33,7 +33,7 @@ const ContactDetailsPage = () => {
   const [editMode, setEditMode] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [form, setForm] = useState(null);
-  
+
   const id = selectedContactId || idFromUrl;
 
   const { data, isLoading, refetch } = useQuery({
@@ -52,13 +52,16 @@ const ContactDetailsPage = () => {
       refetch();
     },
   });
-  
+
   const handleEdit = useCallback(() => setEditMode(true), []);
 
-  const handleEditSubmit = useCallback(async (formData) => {
-    if (!data) return;
-    await updateContactMutation.mutateAsync({ id: data.id, ...formData });
-  }, [data, updateContactMutation]);
+  const handleEditSubmit = useCallback(
+    async (formData) => {
+      if (!data) return;
+      await updateContactMutation.mutateAsync({ id: data.id, ...formData });
+    },
+    [data, updateContactMutation]
+  );
 
   const handleDelete = useCallback(async () => {
     if (!data) return;
@@ -103,7 +106,7 @@ const ContactDetailsPage = () => {
         boxShadow: 2,
         display: "flex",
         flexDirection: "column",
-        bgcolor: 'softCardBg.main',
+        bgcolor: "softCardBg.main",
         minHeight: 500,
       }}
     >
@@ -117,24 +120,29 @@ const ContactDetailsPage = () => {
             px: 2,
             pt: 2,
             mb: 1,
-            bgcolor: 'softCardBg.main'
+            bgcolor: "softCardBg.main",
           }}
         >
-          <IconButton
-            onClick={handleBack}
-          >
+          <IconButton onClick={handleBack}>
             <ArrowBackIcon />
           </IconButton>
           {editMode && (
-            <Typography variant="h5" component="h1" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 'bold' }}>
+            <Typography
+              variant="h5"
+              component="h1"
+              sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
+            >
               Edit Contact
             </Typography>
           )}
-          <IconButton onClick={!editMode ? handleEdit : undefined} color="primary" sx={{ width: 40 }}>
+          <IconButton
+            onClick={!editMode ? handleEdit : undefined}
+            color="primary"
+            sx={{ width: 40 }}
+          >
             {!editMode && <EditIcon />}
           </IconButton>
         </Box>
-        {/* Avatar and Name + Form or Details */}
         {editMode ? (
           <Box
             sx={{
@@ -144,7 +152,7 @@ const ContactDetailsPage = () => {
               flexDirection: "column",
               gap: 2,
               alignItems: "center",
-              bgcolor: 'softCardBg.main'
+              bgcolor: "softCardBg.main",
             }}
           >
             <ContactForm
@@ -168,7 +176,7 @@ const ContactDetailsPage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 mb: 2,
-                bgcolor: 'softCardBg.main'
+                bgcolor: "softCardBg.main",
               }}
             >
               <Avatar
@@ -187,7 +195,7 @@ const ContactDetailsPage = () => {
               </Typography>
               {data.favourite && <StarIcon color="warning" fontSize="large" />}
             </Box>
-            {/* Details Fields - improved style */}
+            {/* Details Fields */}
             <Box
               sx={{
                 mx: 2,
@@ -195,7 +203,7 @@ const ContactDetailsPage = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: 2,
-                bgcolor: 'softCardBg.main'
+                bgcolor: "softCardBg.main",
               }}
             >
               <Box sx={{ bgcolor: "#FAFFF9", borderRadius: 3, p: 2, mb: 1 }}>
@@ -253,7 +261,7 @@ const ContactDetailsPage = () => {
                 color="primary"
                 startIcon={<DeleteIcon />}
                 fullWidth
-                sx={{ mt: 2, bgcolor:"#ff6363"}}
+                sx={{ mt: 2, bgcolor: "#ff6363" }}
                 onClick={handleOpenDeleteDialog}
               >
                 Delete Contact

@@ -1,5 +1,5 @@
-import { useIsFetching, useIsMutating } from '@tanstack/react-query';
-import { Backdrop, CircularProgress } from '@mui/material';
+import { useIsFetching, useIsMutating } from "@tanstack/react-query";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const GlobalSpinner = () => {
   const isFetching = useIsFetching();
@@ -9,7 +9,7 @@ const GlobalSpinner = () => {
 
   return (
     <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={isVisible}
     >
       <CircularProgress color="inherit" />
@@ -17,4 +17,4 @@ const GlobalSpinner = () => {
   );
 };
 
-export default GlobalSpinner; 
+export default GlobalSpinner;

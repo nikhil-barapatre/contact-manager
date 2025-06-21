@@ -77,7 +77,7 @@
       "email": "tanya.reddy@example.com",
       "phone": "9099988877",
       "address": "78 Jubilee Hills, Hyderabad",
-      "favourite": false,
+      "favourite": true,
       "id": "15"
     },
     {
