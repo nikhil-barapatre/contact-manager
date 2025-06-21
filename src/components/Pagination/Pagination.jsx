@@ -18,23 +18,23 @@ const Pagination = ({
             borderTop: '1px solid #eee',
             display: 'flex',
             alignItems: 'center',
-            px: 2,
-            py: 1,
+            px: 1.5,
+            py: 0.5,
             gap: 1,
             justifyContent: 'flex-end'
         }}>
-            <Typography sx={{ fontSize: 15, mr: 1, color: 'text.primary' }}>Rows per page:</Typography>
+            <Typography sx={{ fontSize: 14, mr: 1, color: 'text.primary' }}>Rows per page:</Typography>
             <Select
                 value={rowsPerPage}
                 onChange={onRowsPerPageChange}
                 size="small"
-                sx={{ fontSize: 15, width: 60 }}
+                sx={{ fontSize: 14, width: 60 }}
             >
                 {[5, 10, 15].map((rows) => (
                     <MenuItem key={rows} value={rows}>{rows}</MenuItem>
                 ))}
             </Select>
-            <Typography sx={{ fontSize: 15, mx: 2, color: 'text.primary' }}>{from}–{to} of {totalCount}</Typography>
+            <Typography sx={{ fontSize: 14, mx: 2, color: 'text.primary' }}>{from}–{to} of {totalCount}</Typography>
             <IconButton onClick={() => onPageChange(page - 1)} disabled={page === 0}>
                 <ChevronLeftIcon />
             </IconButton>

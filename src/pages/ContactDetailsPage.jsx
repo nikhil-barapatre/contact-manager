@@ -115,7 +115,8 @@ const ContactDetailsPage = () => {
             alignItems: "center",
             justifyContent: "space-between",
             px: 2,
-            mb: 2,
+            pt: 2,
+            mb: 1,
             bgcolor: 'softCardBg.main'
           }}
         >
@@ -124,11 +125,14 @@ const ContactDetailsPage = () => {
           >
             <ArrowBackIcon />
           </IconButton>
-          {!editMode && (
-            <IconButton onClick={handleEdit} color="primary">
-              <EditIcon />
-            </IconButton>
+          {editMode && (
+            <Typography variant="h5" component="h1" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 'bold' }}>
+              Edit Contact
+            </Typography>
           )}
+          <IconButton onClick={!editMode ? handleEdit : undefined} color="primary" sx={{ width: 40 }}>
+            {!editMode && <EditIcon />}
+          </IconButton>
         </Box>
         {/* Avatar and Name + Form or Details */}
         {editMode ? (

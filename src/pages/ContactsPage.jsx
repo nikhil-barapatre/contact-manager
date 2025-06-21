@@ -41,8 +41,8 @@ const ContactsPage = () => {
                 borderRadius: '0 0 16px 16px',
                 boxShadow: '0 -2px 5px rgba(0,0,0,0.05)'
               }}>
-                <Box sx={{ px: 2, pt: 1, pb: 1 }}>
-                  <Button variant="contained" color="primary" sx={{ mt: 2, bgcolor:"#6CA66B"}} fullWidth onClick={() => navigate('/add')}>
+                <Box sx={{ px: 2, pt: 0.5, pb: 0.5 }}>
+                  <Button variant="contained" color="primary" sx={{ mt: 1, bgcolor:"#6CA66B"}} fullWidth onClick={() => navigate('/add')}>
                     Add Contact
                   </Button>
                 </Box>
